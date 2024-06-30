@@ -13,10 +13,6 @@ const tags2 = [
 ];
 
 ServerEvents.tags('item', function(event) {
-    for (let i = 0; i < tags1.length; i++) {
-        event.add('forge:grasses', tags1[i]);
-    }
-    for (let i = 0; i < tags2.length; i++) {
-        event.add('forge:tag2', tags2[i]);
-    }
+    tags1.forEach(tag => event.add('forge:grasses', tag));
+    tags2.forEach(tag => event.add('forge:tag2', tag));
 });
