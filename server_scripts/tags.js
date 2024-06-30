@@ -14,3 +14,13 @@ if(add) {
 } else {
     console.error('add is null');
 }
+if(add) {
+    add(
+        'item', 
+        'forge:emeralds',  // Added comma here
+        'minecraft:emerald',
+        'minecraft:emerald_block'
+    );
+} else {
+    console.error('add is null');
+}

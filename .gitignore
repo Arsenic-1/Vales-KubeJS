@@ -1,3 +1,2 @@
-#ignore all iml and xml
-*.iml
-*.xml
+.idea/
+.vscode/
