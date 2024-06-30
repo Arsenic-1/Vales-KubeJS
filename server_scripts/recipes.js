@@ -45,16 +45,21 @@ ServerEvents.recipes(event => {
   registerRecipes(event, shapedRecipe, smithingRecipe, mechanicalCraftingRecipe);
 });
 
-// Block transformation recipes
 const blockRecipes = new Map();
 blockRecipes.set(`${MC('cobblestone')}-${MC('redstone')}`, MC('redstone_block'));
 blockRecipes.set(`${F('sand')}-${MC('birch_planks')}`, MC('lava'));
+
+// Define your array of tags
+const tags = ['forge:sand'];
 
 BlockEvents.rightClicked(event => {
   const key = `${event.block.id}-${event.item.id}`;
   const newBlockId = blockRecipes.get(key);
   if (newBlockId) {
-    handleBlockAndItem(event, newBlockId);
+    // Check if the block or item has one of the tags
+    if (tags.includes(event.block.tag) || tags.includes(event.item.tag)) {
+      handleBlockAndItem(event, newBlockId);
+    }
   }
 });
 
