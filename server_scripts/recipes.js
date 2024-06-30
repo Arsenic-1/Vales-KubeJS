@@ -50,9 +50,6 @@ blockRecipes.set(`${MC('cobblestone')}-${MC('redstone')}`, MC('redstone_block'))
 blockRecipes.set(`${MC('sand')}-${MC('birch_planks')}`, MC('lava'));
 blockRecipes.set(`${MC('red_sand')}-${MC('birch_planks')}`, MC('lava'));
 
-// Define your array of tags
-const tags = ['forge:sand'];
-
 BlockEvents.rightClicked(event => {
   const key = `${event.block.id}-${event.item.id}`;
   const newBlockId = blockRecipes.get(key);
