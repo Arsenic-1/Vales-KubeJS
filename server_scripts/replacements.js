@@ -1,24 +1,25 @@
-const shapedRecipe = {
-  output: Item.of('moonsweaponry:diamond_greatsword', 1),
-  shape: ['   ', ' d ', 'dsd'],
-  mapping: { d: 'minecraft:diamond', s: 'minecraft:stick' }
-};
+function createShapedRecipe(output, shape, mapping) {
+  return { output: Item.of(output, 1), shape, mapping };
+}
 
-const smithingRecipe = {
-  output: 'moonsweaponry:netherite_greatsword',
-  template: 'minecraft:echo_shard',
-  itemToUpgrade: 'moonsweaponry:diamond_greatsword',
-  upgradeItem: 'minecraft:oak_log'
-};
+function createSmithingRecipe(output, template, itemToUpgrade, upgradeItem) {
+  return { output, template, itemToUpgrade, upgradeItem };
+}
 
-const mechanicalCraftingRecipe = {
-  output: 'minecraft:dirt',
-  shape: [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '],
-  mapping: { G: '#forge:grasses' }
-};
+function createMechanicalCraftingRecipe(output, shape, mapping) {
+  return { output, shape, mapping };
+}
 
-ServerEvents.recipes(event => {
+function registerRecipes(event, shapedRecipe, smithingRecipe, mechanicalCraftingRecipe) {
   event.shaped(shapedRecipe.output, shapedRecipe.shape, shapedRecipe.mapping);
   event.smithing(smithingRecipe.output, smithingRecipe.template, smithingRecipe.itemToUpgrade, smithingRecipe.upgradeItem);
   event.recipes.create.mechanical_crafting(mechanicalCraftingRecipe.output, mechanicalCraftingRecipe.shape, mechanicalCraftingRecipe.mapping);
+}
+
+const shapedRecipe = createShapedRecipe('moonsweaponry:diamond_greatsword', ['   ', ' d ', 'dsd'], { d: 'minecraft:diamond', s: 'minecraft:stick' });
+const smithingRecipe = createSmithingRecipe('moonsweaponry:netherite_greatsword', 'minecraft:echo_shard', 'moonsweaponry:diamond_greatsword', 'minecraft:oak_log');
+const mechanicalCraftingRecipe = createMechanicalCraftingRecipe('minecraft:dirt', [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: '#forge:grasses' });
+
+ServerEvents.recipes(event => {
+  registerRecipes(event, shapedRecipe, smithingRecipe, mechanicalCraftingRecipe);
 });
