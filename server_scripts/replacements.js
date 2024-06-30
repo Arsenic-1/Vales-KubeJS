@@ -1,13 +1,13 @@
 function createShapedRecipe(output, shape, mapping) {
-  return { output: Item.of(output, 1), shape, mapping };
+  return { 'output': output, 'shape': shape, 'mapping': mapping };
 }
 
 function createSmithingRecipe(output, template, itemToUpgrade, upgradeItem) {
-  return { output, template, itemToUpgrade, upgradeItem };
+  return { 'output': output, 'template': template, 'itemToUpgrade': itemToUpgrade, 'upgradeItem': upgradeItem };
 }
 
 function createMechanicalCraftingRecipe(output, shape, mapping) {
-  return { output, shape, mapping };
+  return { 'output': output, 'shape': shape, 'mapping': mapping };
 }
 
 function registerRecipes(event, shapedRecipe, smithingRecipe, mechanicalCraftingRecipe) {
