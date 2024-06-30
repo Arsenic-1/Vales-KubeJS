@@ -9,13 +9,6 @@ let F = (id, x) => MOD("forge", id, x);
 let AC = (id, x) => MOD("aquaculture", id, x);
 let MW = (id, x) => MOD("moonsweaponry", id, x);
 
-//Recipe removals
-ServerEvents.recipes(event => {
-  event.remove({ id: MW('diamond_greatsword') });
-  event.remove({ id: MW('netherite_greatsword_smithing') });
-  event.remove({ id: CR('building/crafting/furnaces/cobblestone_furnace')});
-});
-
 // Recipe creation functions
 function createShapedRecipe(output, shape, mapping) {
   return { 'output': output, 'shape': shape, 'mapping': mapping };
@@ -41,5 +34,31 @@ const shapedRecipe = createShapedRecipe(MW('diamond_greatsword'), ['   ', ' d ',
 const smithingRecipe = createSmithingRecipe(MW('netherite_greatsword'), MC('echo_shard'), MW('diamond_greatsword'), MC('oak_log'));
 const mechanicalCraftingRecipe = createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: F('#grasses') });
 
-// Register recipes
-ServerEvents.recipes(event => registerRecipes(event, shapedRecipe, smithingRecipe, mechanicalCraftingRecipe));
+// Recipe removals and registration
+ServerEvents.recipes(event => {
+  // Recipe removals
+  event.remove({ id: MW('diamond_greatsword') });
+  event.remove({ id: MW('netherite_greatsword_smithing') });
+  event.remove({ id: CR('building/crafting/furnaces/cobblestone_furnace')});
+
+  // Register recipes
+  registerRecipes(event, shapedRecipe, smithingRecipe, mechanicalCraftingRecipe);
+});
+
+// Block transformation recipes
+const blockRecipes = new Map();
+blockRecipes.set(`${MC('cobblestone')}-${MC('redstone')}`, MC('redstone_block'));
+blockRecipes.set(`${F('sand')}-${MC('birch_planks')}`, MC('lava'));
+
+BlockEvents.rightClicked(event => {
+  const key = `${event.block.id}-${event.item.id}`;
+  const newBlockId = blockRecipes.get(key);
+  if (newBlockId) {
+    handleBlockAndItem(event, newBlockId);
+  }
+});
+
+function handleBlockAndItem(event, newBlockId) {
+  event.block.set(newBlockId);
+  event.item.shrink(1);
+}
