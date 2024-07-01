@@ -5,7 +5,7 @@ let MC = (id, x) => MOD("minecraft", id, x);
 let KJ = (id, x) => MOD("kubejs", id, x);
 let FD = (id, x) => MOD("farmersdelight", id, x);
 let SP = (id, x) => MOD("supplementaries", id, x);
-let F = (id, x) => MOD("forge", id, x);
+let FO = (id, x) => MOD("forge", id, x);
 let AC = (id, x) => MOD("aquaculture", id, x);
 let MW = (id, x) => MOD("moonsweaponry", id, x);
 
@@ -32,7 +32,7 @@ function registerRecipes(event, shapedRecipe, smithingRecipe, mechanicalCrafting
 // Recipe definitions
 const shapedRecipe = createShapedRecipe(MW('diamond_greatsword'), ['   ', ' d ', 'dsd'], { d: MC('diamond'), s: MC('stick') });
 const smithingRecipe = createSmithingRecipe(MW('netherite_greatsword'), MC('echo_shard'), MW('diamond_greatsword'), MC('oak_log'));
-const mechanicalCraftingRecipe = createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: F('#grasses') });
+const mechanicalCraftingRecipe = createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: FO('#grasses') });
 
 // Recipe removals and registration
 ServerEvents.recipes(event => {
