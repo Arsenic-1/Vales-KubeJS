@@ -1,24 +1,4 @@
 {
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#423f43",
-        "activityBar.background": "#423f43",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#000000",
-        "activityBarBadge.foreground": "#e7e7e7",
-        "commandCenter.border": "#e7e7e799",
-        "sash.hoverBorder": "#423f43",
-        "statusBar.background": "#282629",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#423f43",
-        "statusBarItem.remoteBackground": "#282629",
-        "statusBarItem.remoteForeground": "#e7e7e7",
-        "titleBar.activeBackground": "#282629",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#28262999",
-        "titleBar.inactiveForeground": "#e7e7e799"
-    },
-    "peacock.color": "#282629",
     "cSpell.words": [
         "Afawie",
         "biomesoplenty",
