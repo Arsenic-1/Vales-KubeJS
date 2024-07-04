@@ -1,4 +1,4 @@
-const tags1 = [
+const tags1: string[] = [
     'minecraft:grass_block',
     'immersive_weathering:rooted_grass_block',
     'immersive_weathering:grassy_earthen_clay',
@@ -7,12 +7,12 @@ const tags1 = [
     'immersive_weathering:grassy_permafrost'
 ];
 
-const tags2 = [
+const tags2: string[] = [
     'minecraft:cobblestone',
     'minecraft:oak_log'
 ];
 
-ServerEvents.tags('item', function(event) {
-    tags1.forEach(tag => event.add('forge:grasses', tag));
-    tags2.forEach(tag => event.add('forge:tag2', tag));
-});
+ServerEvents.tags('item', function(event: any) {
+    tags1.forEach((tag: string) => event.add('forge:grasses', tag));
+    tags2.forEach((tag: string) => event.add('forge:tag2', tag));
+})
