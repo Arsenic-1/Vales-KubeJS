@@ -45,18 +45,19 @@ const recipes = [
     createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: FO('#grasses') })
 ];
 
-// Recipe removals and registration
+// Recipe removals
 ServerEvents.recipes((event) => {
-    // Recipe removals
     event.remove({ id: MW('diamond_greatsword') });
     event.remove({ id: MW('iron_greatsword') });
     event.remove({ id: MW('netherite_greatsword_smithing') });
     event.remove({ id: QU('building/crafting/furnaces/cobblestone_furnace') });
-    // Register recipes
+    
+// Register recipes
     registerRecipes(event, recipes);
 });
 
 
+//--// Block recipe handler //--//
 const blockRecipes = new Map();
 blockRecipes.set(`${MC('cobblestone')}-${MC('redstone')}`, MC('redstone_block'));
 blockRecipes.set(`${MC('sand')}-${MC('birch_planks')}`, MC('lava'));
