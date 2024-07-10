@@ -41,6 +41,7 @@ function registerRecipes(event, recipes) {
 const recipes = [
     createShapedRecipe(MW('diamond_greatsword'), ['   ', ' d ', 'dsd'], { d: MC('diamond'), s: MC('stick') }),
     createShapedRecipe(MW('iron_greatsword'), ['   ', ' i ', 'isi'], { i: MC('iron_ingot'), s: MC('stick') }),
+    createShapedRecipe(MC('lodestone'), ['sss', 'sis', 'sss'], { s: MC('chiseled_stone_bricks'), i: MC('iron_block') }),
     createSmithingRecipe(MW('netherite_greatsword'), MC('echo_shard'), MW('diamond_greatsword'), MC('oak_log')),
     createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: FO('#grasses') })
 ];
@@ -51,6 +52,7 @@ ServerEvents.recipes((event) => {
     event.remove({ id: MW('iron_greatsword') });
     event.remove({ id: MW('netherite_greatsword_smithing') });
     event.remove({ id: QU('building/crafting/furnaces/cobblestone_furnace') });
+    event.remove({ id: MC('lodestone') });
     
     // Register recipes
     registerRecipes(event, recipes);
