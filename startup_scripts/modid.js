@@ -1,1 +1,1 @@
-Platform.mods.kubejs.name = 'Afawie'
+Platform.setModName('kubejs', 'Afawie')
