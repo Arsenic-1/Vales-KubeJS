@@ -1,7 +1,3 @@
 .idea/
 .vscode/
 .gitignore/
-.config/
-config/client.properties
-config/common.properties
-config/dev.properties
