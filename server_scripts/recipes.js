@@ -19,6 +19,9 @@ function createSmithingRecipe(output, template, itemToUpgrade, upgradeItem) {
 function createMechanicalCraftingRecipe(output, shape, mapping) {
     return { 'type': 'mechanical_crafting', 'output': output, 'shape': shape, 'mapping': mapping };
 }
+function createFillingRecipe(results, ingredients) {
+    return { 'type': 'create:filling', 'results': results, 'ingredients': ingredients };
+}
 
 // Recipe registration function
 function registerRecipes(event, recipes) {
@@ -33,6 +36,9 @@ function registerRecipes(event, recipes) {
             case 'mechanical_crafting':
                 event.recipes.create.mechanical_crafting(recipe.output, recipe.shape, recipe.mapping);
                 break;
+            case 'create:filling':
+                event.recipes.create.filling(recipe.results, recipe.ingredients);
+                break;
         }
     });
 }
@@ -43,7 +49,9 @@ const recipes = [
     createShapedRecipe(MW('iron_greatsword'), ['   ', ' i ', 'isi'], { i: MC('iron_ingot'), s: MC('stick') }),
     createShapedRecipe(MC('lodestone'), ['sss', 'sis', 'sss'], { s: MC('chiseled_stone_bricks'), i: MC('iron_block') }),
     createSmithingRecipe(MW('netherite_greatsword'), MC('echo_shard'), MW('diamond_greatsword'), MC('oak_log')),
-    createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: FO('#grasses') })
+    createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: FO('#grasses') }),
+    createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: FO('#grasses') }),
+    createFillingRecipe([{ "item": "splash_milk:milk_bottle" }], [{ "item": "minecraft:glass_bottle" }, { "fluid": "minecraft:milk", "nbt": {}, "amount": 250 }])
 ];
 
 // Recipe removals
@@ -53,7 +61,8 @@ ServerEvents.recipes((event) => {
     event.remove({ id: MW('netherite_greatsword_smithing') });
     event.remove({ id: QU('building/crafting/furnaces/cobblestone_furnace') });
     event.remove({ id: MC('lodestone') });
-    
+    event.remove({ id: FD('milk_bottle') });
+    // event.remove({ id: CR('filling/compat/farmersdelight/milk_bottle') });
     // Register recipes
     registerRecipes(event, recipes);
 });
