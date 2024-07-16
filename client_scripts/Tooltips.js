@@ -1,6 +1,6 @@
 ItemEvents.tooltip(event => {
     event.addAdvanced('#c:tools', (item, advanced, text) => {
-  //    if (event.shift) {
+     if (event.shift) {
           const maxDurability = item.getMaxDamage();
           const currentDurability = item.getMaxDamage() - item.getDamageValue();
           const durabilityText = currentDurability === maxDurability 
@@ -8,7 +8,7 @@ ItemEvents.tooltip(event => {
             : `${currentDurability}/${maxDurability}`;
             if (!text.toString().includes("durability")) {
                 text.add(Text.white(`${currentDurability} / ${maxDurability}`));
-  //    }
+     }
     }})
   })
 
