@@ -85,7 +85,15 @@ ItemEvents.tooltip(event => {
           nodes: [[255, 255, 0], [0, 255, 255], [255, 0, 255]],
           length: 5,
           time: 1
+      },
+      {
+          id: "moonsweaponry:diamond_greatsword",
+          name: "Diamond Greatsword of Light",
+          nodes: [[255, 255, 255], [255, 255, 0], [0, 255, 255]],
+          length: 5,
+          time: 1
       }
+      // Add more items here...
   ];
 
   for(let i = 0; i < colorfulnames.length; i++){
