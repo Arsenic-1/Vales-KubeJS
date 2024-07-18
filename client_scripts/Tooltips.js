@@ -81,7 +81,7 @@ ItemEvents.tooltip(event => {
   let colorfulnames = [
       {
           id: 'moonsweaponry:netherite_greatsword',
-          name: "Super Rainbow Gay Sword Yay",
+          name: "Rainbow Sword Yay",
           nodes: [[255, 255, 0], [0, 255, 255], [255, 0, 255]],
           length: 5,
           time: 1
