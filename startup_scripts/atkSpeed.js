@@ -1,4 +1,3 @@
-// Your existing code snippet
 const materials = ['wooden', 'stone', 'iron', 'diamond', 'golden', 'netherite'];
 const weapons = ['greatsword', 'halberd', 'hammer', 'katana', 'rapier', 'scythe', 'warglaive', 'mace', 'spear'];
 const minecraftWeapons = ['sword', 'axe'];
