@@ -62,7 +62,7 @@ ServerEvents.recipes((event) => {
     event.remove({ id: QU('building/crafting/furnaces/cobblestone_furnace') });
     event.remove({ id: MC('lodestone') });
     event.remove({ id: FD('milk_bottle') });
-    // event.remove({ id: CR('filling/compat/farmersdelight/milk_bottle') });
+    event.remove({ id: CR('filling/compat/farmersdelight/milk_bottle') });
     // Register recipes
     registerRecipes(event, recipes);
 });
