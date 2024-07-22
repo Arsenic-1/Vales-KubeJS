@@ -80,20 +80,8 @@ function registerRecipes(event, recipes) {
             case 'shaped':
                 event.shaped(recipe.output, recipe.shape, recipe.mapping);
                 break;
-            case 'shapeless':
-                event.shapeless(recipe.output, recipe.ingredients);
-                break;
             case 'smithing':
                 event.smithing(recipe.output, recipe.template, recipe.itemToUpgrade, recipe.upgradeItem);
-                break;
-            case 'smelting':
-                event.smelting(recipe.output, recipe.ingredient).experience(recipe.experience).cookingtime(recipe.cookingtime);
-                break;
-            case 'blasting':
-                event.blasting(recipe.output, recipe.ingredient).experience(recipe.experience).cookingtime(recipe.cookingtime);
-                break;
-            case 'smoking':
-                event.smoking(recipe.output, recipe.ingredient).experience(recipe.experience).cookingtime(recipe.cookingtime);
                 break;
             case 'campfire_cooking':
                 event.campfire_cooking(recipe.output, recipe.ingredient).experience(recipe.experience).cookingtime(recipe.cookingtime);
@@ -103,42 +91,6 @@ function registerRecipes(event, recipes) {
                 break;
             case 'create:filling':
                 event.recipes.create.filling(recipe.results, recipe.ingredients);
-                break;
-            case 'create:compacting':
-                    event.recipes.create.compacting(recipe.outputs, recipe.inputs);
-                break;
-            case 'create:crushing':
-                    event.recipes.create.crushing(recipe.outputs, recipe.input).processingTime(recipe.processingTime);
-                break;
-            case 'create:cutting':
-                    event.recipes.create.cutting(recipe.outputs, recipe.input).processingTime(recipe.processingTime);
-                break;
-            case 'create:deploying':
-                    event.recipes.create.deploying(recipe.outputs, recipe.inputs).keepHeldItem();
-                break;
-            case 'create:emptying':
-                    event.recipes.create.emptying(recipe.outputs, recipe.input);
-                break;
-            case 'create:haunting':
-                    event.recipes.create.haunting(recipe.outputs, recipe.input);
-                break;
-            case 'create:milling':
-                    event.recipes.create.milling(recipe.outputs, recipe.input);
-                break;
-            case 'create:mixing':
-                    event.recipes.create.mixing(recipe.outputs, recipe.inputs).heated().superheated();
-                break;
-            case 'create:pressing':
-                    event.recipes.create.pressing(recipe.outputs, recipe.input);
-                break;
-            case 'create:sandpaper_polishing':
-                    event.recipes.create.sandpaper_polishing(recipe.output, recipe.input);
-                break;
-            case 'create:sequenced_assembly':
-                    event.recipes.create.sequenced_assembly(recipe.outputs, recipe.input, recipe.sequence).transitionalItem(recipe.transitionalItem).loops(recipe.loops);
-                break;
-            case 'create:splashing':
-                    event.recipes.create.splashing(recipe.outputs, recipe.input);
                 break;
         }
     });
@@ -152,7 +104,7 @@ const recipes = [
     createSmithingRecipe(MW('netherite_greatsword'), MC('echo_shard'), MW('diamond_greatsword'), MC('oak_log')),
     createMechanicalCraftingRecipe(MC('dirt'), [' GGG ', 'GGGGG', 'GGGGG', 'GGGGG', ' GGG '], { G: FO('#grasses') }),
     createFillingRecipe([{ "item": "splash_milk:milk_bottle" }], [{ "item": "minecraft:glass_bottle" }, { "fluid": "minecraft:milk", "nbt": {}, "amount": 250 }]),
-    createSandpaperPolishingRecipe(MC('coal'), MC('coal_block'))
+    createSandpaperPolishingRecipe(MC('coal'), MC('coal_block')),
 ];
 
 // Recipe removals
