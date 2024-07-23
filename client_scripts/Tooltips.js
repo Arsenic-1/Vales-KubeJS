@@ -52,6 +52,14 @@ ItemEvents.tooltip(event => {
 })
 
 // Color changing tooltips
+/**
+ * Calculates a new color value based on the given color name and position.
+ * The color is determined by interpolating between nodes in the color name's color array.
+ *
+ * @param {Object} cname - The color name object containing color nodes and other properties.
+ * @param {number} pos - The position used to calculate the color.
+ * @returns {number} The new color value.
+ */
 function calculateNewColor(cname, pos) {
   let newcolor = 0;
   for(let k = 0; k < 3; k++){
@@ -67,6 +75,15 @@ function calculateNewColor(cname, pos) {
   return newcolor;
 }
 
+/**
+ * Creates a colored name array by applying color values to each character in the given name array.
+ * The color values are calculated using the calculateNewColor function.
+ *
+ * @param {Object} cname - The color name object containing color nodes and other properties.
+ * @param {number} offset - The offset used to calculate the color.
+ * @param {Array} namearray - The array of characters to apply color to.
+ * @returns {Array} The colored name array.
+ */
 function createColoredName(cname, offset, namearray) {
   let coloredname = [];
   for(let j = 0; j < namearray.length; j++){

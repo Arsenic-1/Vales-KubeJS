@@ -10,22 +10,92 @@ const MW = (id, x) => MOD("moonsweaponry", id, x);
 const QU = (id, x) => MOD("quark", id, x);
 
 // Recipe creation functions
+/**
+ * Handles the creation of various types of recipes.
+ *
+ * @param {object} event - The event object containing the recipe registration methods.
+ * @param {array} recipes - An array of recipe objects to be registered.
+ *
+ * @returns {void}
+ */
+
+/**
+ * Handles the creation of a shaped crafting recipe.
+ *
+ * @param {object} output - The item stack representing the output of the recipe.
+ * @param {array} shape - An array of strings representing the shape of the crafting grid.
+ * @param {object} mapping - An object mapping characters in the shape to item stacks.
+ *
+ * @returns {object} - A shaped crafting recipe object.
+ */
 function createShapedRecipe(output, shape, mapping) {
     return { 'type': 'shaped', 'output': output, 'shape': shape, 'mapping': mapping };
 }
+
+/**
+ * Handles the creation of a smithing crafting recipe.
+ *
+ * @param {object} output - The item stack representing the output of the recipe.
+ * @param {object} template - The item stack representing the template item in the smithing table.
+ * @param {object} itemToUpgrade - The item stack representing the item to be upgraded.
+ * @param {object} upgradeItem - The item stack representing the upgrade item.
+ *
+ * @returns {object} - A smithing crafting recipe object.
+ */
 function createSmithingRecipe(output, template, itemToUpgrade, upgradeItem) {
     return { 'type': 'smithing', 'output': output, 'template': template, 'itemToUpgrade': itemToUpgrade, 'upgradeItem': upgradeItem };
 }
+
+/**
+ * Handles the creation of a mechanical crafting recipe.
+ *
+ * @param {object} output - The item stack representing the output of the recipe.
+ * @param {array} shape - An array of strings representing the shape of the crafting grid.
+ * @param {object} mapping - An object mapping characters in the shape to item stacks.
+ *
+ * @returns {object} - A mechanical crafting recipe object.
+ */
 function createMechanicalCraftingRecipe(output, shape, mapping) {
     return { 'type': 'mechanical_crafting', 'output': output, 'shape': shape, 'mapping': mapping };
 }
+
+/**
+ * Handles the creation of a filling recipe.
+ *
+ * @param {array} results - An array of item stacks representing the results of the recipe.
+ * @param {array} ingredients - An array of objects representing the ingredients required for the recipe.
+ *
+ * @returns {object} - A filling recipe object.
+ */
 function createFillingRecipe(results, ingredients) {
     return { 'type': 'create:filling', 'results': results, 'ingredients': ingredients };
 }
+
+/**
+ * Handles the creation of a sandpaper polishing recipe.
+ *
+ * @param {object} output - The item stack representing the output of the recipe.
+ * @param {object} input - The item stack representing the input item for the recipe.
+ *
+ * @returns {object} - A sandpaper polishing recipe object.
+ */
 function createSandpaperPolishingRecipe(output, input) {
     return { 'type': 'create:sandpaper_polishing', 'output': output, 'input': input };
 }
-// Recipe registration function
+
+/**
+ * Handles the block and item interaction when a block is right-clicked.
+ *
+ * @param {object} event - The event object containing information about the block and item interaction.
+ * @param {object} newBlockId - The new block ID to set when the interaction occurs.
+ *
+ * @returns {void}
+ */
+
+function handleBlockAndItem(event, newBlockId) {
+    event.block.set(newBlockId);
+    event.item.shrink(1);
+}
 function registerRecipes(event, recipes) {
     recipes.forEach(recipe => {
         switch (recipe.type) {
