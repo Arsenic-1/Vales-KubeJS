@@ -29,7 +29,9 @@ const QU = (id, x) => MOD("quark", id, x);
  * @returns {object} - A shaped crafting recipe object.
  */
 function createShapedRecipe(output, shape, mapping) {
-    return { 'type': 'shaped', 'output': output, 'shape': shape, 'mapping': mapping };
+    const recipe = { 'type': 'shaped', 'output': output, 'shape': shape, 'mapping': mapping };
+    console.log('Created shaped recipe:', recipe);
+    return recipe;
 }
 
 /**
@@ -43,7 +45,9 @@ function createShapedRecipe(output, shape, mapping) {
  * @returns {object} - A smithing crafting recipe object.
  */
 function createSmithingRecipe(output, template, itemToUpgrade, upgradeItem) {
-    return { 'type': 'smithing', 'output': output, 'template': template, 'itemToUpgrade': itemToUpgrade, 'upgradeItem': upgradeItem };
+    const recipe = { 'type': 'smithing', 'output': output, 'template': template, 'itemToUpgrade': itemToUpgrade, 'upgradeItem': upgradeItem };
+    console.log('Created smithing recipe:', recipe);
+    return recipe;
 }
 
 /**
@@ -56,7 +60,9 @@ function createSmithingRecipe(output, template, itemToUpgrade, upgradeItem) {
  * @returns {object} - A mechanical crafting recipe object.
  */
 function createMechanicalCraftingRecipe(output, shape, mapping) {
-    return { 'type': 'mechanical_crafting', 'output': output, 'shape': shape, 'mapping': mapping };
+    const recipe = { 'type': 'mechanical_crafting', 'output': output, 'shape': shape, 'mapping': mapping };
+    console.log('Created mechanical crafting recipe:', recipe);
+    return recipe;
 }
 
 /**
@@ -68,7 +74,9 @@ function createMechanicalCraftingRecipe(output, shape, mapping) {
  * @returns {object} - A filling recipe object.
  */
 function createFillingRecipe(results, ingredients) {
-    return { 'type': 'create:filling', 'results': results, 'ingredients': ingredients };
+    const recipe = { 'type': 'create:filling', 'results': results, 'ingredients': ingredients };
+    console.log('Created filling recipe:', recipe);
+    return recipe;
 }
 
 /**
@@ -80,22 +88,28 @@ function createFillingRecipe(results, ingredients) {
  * @returns {object} - A sandpaper polishing recipe object.
  */
 function createSandpaperPolishingRecipe(output, input) {
-    return { 'type': 'create:sandpaper_polishing', 'output': output, 'input': input };
+    const recipe = { 'type': 'create:sandpaper_polishing', 'output': output, 'input': input };
+    console.log('Created sandpaper polishing recipe:', recipe);
+    return recipe;
 }
 
 function registerRecipes(event, recipes) {
     recipes.forEach(recipe => {
         switch (recipe.type) {
             case 'shaped':
+                console.log('Registering shaped recipe:', recipe.output);
                 event.shaped(recipe.output, recipe.shape, recipe.mapping);
                 break;
             case 'smithing':
+                console.log('Registering smithing recipe:', recipe.output);
                 event.smithing(recipe.output, recipe.template, recipe.itemToUpgrade, recipe.upgradeItem);
                 break;
             case 'mechanical_crafting':
+                console.log('Registering mechanical crafting recipe:', recipe.output);
                 event.recipes.create.mechanical_crafting(recipe.output, recipe.shape, recipe.mapping);
                 break;
             case 'create:filling':
+                console.log('Registering filling recipe:', recipe.results);
                 event.recipes.create.filling(recipe.results, recipe.ingredients);
                 break;
         }
@@ -122,7 +136,9 @@ ServerEvents.recipes((event) => {
     event.remove({ id: MC('lodestone') });
     event.remove({ id: FD('milk_bottle') });
     event.remove({ id: CR('filling/compat/farmersdelight/milk_bottle') });
+
     // Register recipes
+    console.log('Registering recipes...');
     registerRecipes(event, recipes);
 });
 
@@ -136,6 +152,7 @@ BlockEvents.rightClicked((event) => {
     const key = `${event.block.id}-${event.item.id}`;
     const newBlockId = blockRecipes.get(key);
     if (newBlockId) {
+        console.log(`Converting ${event.block.id} to ${newBlockId} using ${event.item.id}`);
         handleBlockAndItem(event, newBlockId);
     }
 });
@@ -148,8 +165,9 @@ BlockEvents.rightClicked((event) => {
  *
  * @returns {void}
  */
-
 function handleBlockAndItem(event, newBlockId) {
+    console.log(`Setting block ${event.block.id} to ${newBlockId}`);
     event.block.set(newBlockId);
+    console.log(`Shrinking item ${event.item.id}`);
     event.item.shrink(1);
 }
