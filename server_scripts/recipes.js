@@ -83,19 +83,6 @@ function createSandpaperPolishingRecipe(output, input) {
     return { 'type': 'create:sandpaper_polishing', 'output': output, 'input': input };
 }
 
-/**
- * Handles the block and item interaction when a block is right-clicked.
- *
- * @param {object} event - The event object containing information about the block and item interaction.
- * @param {object} newBlockId - The new block ID to set when the interaction occurs.
- *
- * @returns {void}
- */
-
-function handleBlockAndItem(event, newBlockId) {
-    event.block.set(newBlockId);
-    event.item.shrink(1);
-}
 function registerRecipes(event, recipes) {
     recipes.forEach(recipe => {
         switch (recipe.type) {
@@ -152,6 +139,15 @@ BlockEvents.rightClicked((event) => {
         handleBlockAndItem(event, newBlockId);
     }
 });
+
+/**
+ * Handles the block and item interaction when a block is right-clicked.
+ *
+ * @param {object} event - The event object containing information about the block and item interaction.
+ * @param {object} newBlockId - The new block ID to set when the interaction occurs.
+ *
+ * @returns {void}
+ */
 
 function handleBlockAndItem(event, newBlockId) {
     event.block.set(newBlockId);
