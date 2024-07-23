@@ -1,5 +1,10 @@
 // Mod shorthand
-const MOD = (domain, id, x) => (x ? 'C' : '') + (id.startsWith('#') ? '#' : '') + domain + ':' + id.replace('#', '');
+const MOD = (domain, id, x) => {
+    const result = (x ? 'C' : '') + (id.startsWith('#') ? '#' : '') + domain + ':' + id.replace('#', '');
+    console.log(`MOD -> Domain: ${domain}, ID: ${id}, X: ${x}, Result: ${result}`);
+    return result;
+};
+
 const CR = (id, x) => MOD("create", id, x);
 const MC = (id, x) => MOD("minecraft", id, x);
 const KJ = (id, x) => MOD("kubejs", id, x);
@@ -29,9 +34,9 @@ const QU = (id, x) => MOD("quark", id, x);
  * @returns {object} - A shaped crafting recipe object.
  */
 function createShapedRecipe(output, shape, mapping) {
-    const recipe = { 'type': 'shaped', 'output': output, 'shape': shape, 'mapping': mapping };
-    console.log('Created shaped recipe:', recipe);
-    return recipe;
+    const result = { 'type': 'shaped', 'output': output, 'shape': shape, 'mapping': mapping };
+    console.log(`createShapedRecipe -> Output: ${output}, Shape: ${shape}, Mapping: ${JSON.stringify(mapping)}, Result: ${JSON.stringify(result)}`);
+    return result;
 }
 
 /**
@@ -45,9 +50,9 @@ function createShapedRecipe(output, shape, mapping) {
  * @returns {object} - A smithing crafting recipe object.
  */
 function createSmithingRecipe(output, template, itemToUpgrade, upgradeItem) {
-    const recipe = { 'type': 'smithing', 'output': output, 'template': template, 'itemToUpgrade': itemToUpgrade, 'upgradeItem': upgradeItem };
-    console.log('Created smithing recipe:', recipe);
-    return recipe;
+    const result = { 'type': 'smithing', 'output': output, 'template': template, 'itemToUpgrade': itemToUpgrade, 'upgradeItem': upgradeItem };
+    console.log(`createSmithingRecipe -> Output: ${output}, Template: ${template}, ItemToUpgrade: ${itemToUpgrade}, UpgradeItem: ${upgradeItem}, Result: ${JSON.stringify(result)}`);
+    return result;
 }
 
 /**
@@ -60,9 +65,9 @@ function createSmithingRecipe(output, template, itemToUpgrade, upgradeItem) {
  * @returns {object} - A mechanical crafting recipe object.
  */
 function createMechanicalCraftingRecipe(output, shape, mapping) {
-    const recipe = { 'type': 'mechanical_crafting', 'output': output, 'shape': shape, 'mapping': mapping };
-    console.log('Created mechanical crafting recipe:', recipe);
-    return recipe;
+    const result = { 'type': 'mechanical_crafting', 'output': output, 'shape': shape, 'mapping': mapping };
+    console.log(`createMechanicalCraftingRecipe -> Output: ${output}, Shape: ${shape}, Mapping: ${JSON.stringify(mapping)}, Result: ${JSON.stringify(result)}`);
+    return result;
 }
 
 /**
@@ -74,9 +79,9 @@ function createMechanicalCraftingRecipe(output, shape, mapping) {
  * @returns {object} - A filling recipe object.
  */
 function createFillingRecipe(results, ingredients) {
-    const recipe = { 'type': 'create:filling', 'results': results, 'ingredients': ingredients };
-    console.log('Created filling recipe:', recipe);
-    return recipe;
+    const result = { 'type': 'create:filling', 'results': results, 'ingredients': ingredients };
+    console.log(`createFillingRecipe -> Results: ${JSON.stringify(results)}, Ingredients: ${JSON.stringify(ingredients)}, Result: ${JSON.stringify(result)}`);
+    return result;
 }
 
 /**
@@ -88,28 +93,26 @@ function createFillingRecipe(results, ingredients) {
  * @returns {object} - A sandpaper polishing recipe object.
  */
 function createSandpaperPolishingRecipe(output, input) {
-    const recipe = { 'type': 'create:sandpaper_polishing', 'output': output, 'input': input };
-    console.log('Created sandpaper polishing recipe:', recipe);
-    return recipe;
+    const result = { 'type': 'create:sandpaper_polishing', 'output': output, 'input': input };
+    console.log(`createSandpaperPolishingRecipe -> Output: ${output}, Input: ${input}, Result: ${JSON.stringify(result)}`);
+    return result;
 }
 
 function registerRecipes(event, recipes) {
+    console.log(`registerRecipes -> Total Recipes: ${recipes.length}`);
     recipes.forEach(recipe => {
+        console.log(`Registering Recipe -> ${JSON.stringify(recipe)}`);
         switch (recipe.type) {
             case 'shaped':
-                console.log('Registering shaped recipe:', recipe.output);
                 event.shaped(recipe.output, recipe.shape, recipe.mapping);
                 break;
             case 'smithing':
-                console.log('Registering smithing recipe:', recipe.output);
                 event.smithing(recipe.output, recipe.template, recipe.itemToUpgrade, recipe.upgradeItem);
                 break;
             case 'mechanical_crafting':
-                console.log('Registering mechanical crafting recipe:', recipe.output);
                 event.recipes.create.mechanical_crafting(recipe.output, recipe.shape, recipe.mapping);
                 break;
             case 'create:filling':
-                console.log('Registering filling recipe:', recipe.results);
                 event.recipes.create.filling(recipe.results, recipe.ingredients);
                 break;
         }
@@ -129,6 +132,7 @@ const recipes = [
 
 // Recipe removals
 ServerEvents.recipes((event) => {
+    console.log("Removing recipes and registering new ones.");
     event.remove({ id: MW('diamond_greatsword') });
     event.remove({ id: MW('iron_greatsword') });
     event.remove({ id: MW('netherite_greatsword_smithing') });
@@ -136,9 +140,7 @@ ServerEvents.recipes((event) => {
     event.remove({ id: MC('lodestone') });
     event.remove({ id: FD('milk_bottle') });
     event.remove({ id: CR('filling/compat/farmersdelight/milk_bottle') });
-
     // Register recipes
-    console.log('Registering recipes...');
     registerRecipes(event, recipes);
 });
 
@@ -149,11 +151,14 @@ blockRecipes.set(`${MC('sand')}-${MC('birch_planks')}`, MC('lava'));
 blockRecipes.set(`${MC('red_sand')}-${MC('birch_planks')}`, MC('lava'));
 
 BlockEvents.rightClicked((event) => {
+    console.log(`Block Right-Clicked -> Block: ${event.block.id}, Item: ${event.item.id}`);
     const key = `${event.block.id}-${event.item.id}`;
     const newBlockId = blockRecipes.get(key);
     if (newBlockId) {
-        console.log(`Converting ${event.block.id} to ${newBlockId} using ${event.item.id}`);
+        console.log(`Transforming Block -> Old: ${event.block.id}, New: ${newBlockId}`);
         handleBlockAndItem(event, newBlockId);
+    } else {
+        console.log(`No Transformation Found -> Key: ${key}`);
     }
 });
 
@@ -165,9 +170,10 @@ BlockEvents.rightClicked((event) => {
  *
  * @returns {void}
  */
+
 function handleBlockAndItem(event, newBlockId) {
-    console.log(`Setting block ${event.block.id} to ${newBlockId}`);
+    console.log(`Handling Block and Item -> Block: ${event.block.id}, New Block ID: ${newBlockId}`);
     event.block.set(newBlockId);
-    console.log(`Shrinking item ${event.item.id}`);
     event.item.shrink(1);
 }
+
