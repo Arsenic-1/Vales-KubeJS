@@ -150,7 +150,11 @@ blockRecipes.set(`${MC('cobblestone')}-${MC('redstone')}`, MC('redstone_block'))
 blockRecipes.set(`${MC('sand')}-${MC('birch_planks')}`, MC('lava'));
 blockRecipes.set(`${MC('red_sand')}-${MC('birch_planks')}`, MC('lava'));
 
+// Adding extra logging for debugging
+console.log("Block Recipes Initialized:", Array.from(blockRecipes.entries()));
+
 BlockEvents.rightClicked((event) => {
+    console.log("Block right-click event detected.");
     console.log(`Block Right-Clicked -> Block: ${event.block.id}, Item: ${event.item.id}`);
     const key = `${event.block.id}-${event.item.id}`;
     const newBlockId = blockRecipes.get(key);
@@ -177,3 +181,9 @@ function handleBlockAndItem(event, newBlockId) {
     event.item.shrink(1);
 }
 
+// Debugging event registration
+if (typeof BlockEvents !== 'undefined' && typeof BlockEvents.rightClicked === 'function') {
+    console.log("BlockEvents.rightClicked successfully registered.");
+} else {
+    console.log("Error: BlockEvents.rightClicked not registered.");
+}
